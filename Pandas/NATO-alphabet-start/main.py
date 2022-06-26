@@ -26,15 +26,20 @@ for (index, row) in student_data_frame.iterrows():
 
 data = pandas.read_csv("nato_phonetic_alphabet.csv")
 
-nato_data_frame = pandas.DataFrame(data)
-# print(data_dict)
-
-# for (index, row) in data_data_frame.iterrows():
-#     nato_dict[row.letter] = row.code
-nato_dict = {row.letter: row.code for (index, row) in nato_data_frame.iterrows()}
+nato_dict = {row.letter: row.code for (index, row) in data.iterrows()}
 print(nato_dict)
 
+
 # Create a list of the phonetic code words from a word that the user inputs.
-word = input("please type your name: ").upper()
-output_list = [nato_dict[letter] for letter in word]
-print(output_list)
+def generate_nato():
+    word = input("please type your name: ").upper()
+    try:
+        output_list = [nato_dict[letter] for letter in word]
+    except KeyError:
+        print('Sorry, only letters in the alphabet please.')
+        generate_nato()
+    else:
+        print(output_list)
+
+
+generate_nato()
